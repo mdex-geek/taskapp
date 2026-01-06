@@ -1,0 +1,19 @@
+meta {
+  name: signin
+  type: http
+  seq: 1
+}
+
+post {
+  url: ::1:8080
+  body: none
+  auth: inherit
+}
+
+params:path {
+  :1:8080: 
+}
+
+settings {
+  encodeUrl: true
+}
