@@ -1,16 +1,17 @@
 package com.todo.backend.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.todo.backend.dto.auth.SignUpUserRequestDto;
 import com.todo.backend.entity.UserEntity;
-import com.todo.backend.exception.EmailAlreadyExistsException;
+import com.todo.backend.exception.impl.EmailAlreadyExistsException;
 import com.todo.backend.reposistory.UserReposistory;
 
 @Service
-public class SignUp {
+public class SignUpService {
 
     @Autowired
     private JwtService jwtService;
@@ -31,9 +32,13 @@ public class SignUp {
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setName(dto.getName());
 
-        userReposistory.save(user);
-        
-        return jwtService.generateToken(user.getEmail());
+//        due to race-condition at same time
+        try{
+            return jwtService.generateToken(userReposistory.save(user).getEmail());
+        }catch (DataIntegrityViolationException ex){
+            throw new EmailAlreadyExistsException("email is already exists");
+        }
+
     }
 
     

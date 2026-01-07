@@ -1,5 +1,9 @@
 package com.todo.backend.exception;
 
+import com.todo.backend.exception.impl.EmailAlreadyExistsException;
+import com.todo.backend.exception.impl.EmailNotFoundException;
+import com.todo.backend.exception.impl.PasswordNotFoundException;
+import com.todo.backend.exception.impl.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

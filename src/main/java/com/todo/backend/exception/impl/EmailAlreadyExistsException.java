@@ -1,4 +1,4 @@
-package com.todo.backend.exception;
+package com.todo.backend.exception.impl;
 
 public class EmailAlreadyExistsException extends RuntimeException {
 

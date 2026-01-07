@@ -5,15 +5,19 @@ meta {
 }
 
 post {
-  url: ::1:8080
-  body: none
+  url: 127.0.0.1:8080/auth/signin
+  body: json
   auth: inherit
 }
 
-params:path {
-  :1:8080: 
+body:json {
+  {
+    "email":"test91@outlook.com",
+    "password":"testcheck"
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
